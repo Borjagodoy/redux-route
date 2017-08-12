@@ -1,0 +1,52 @@
+{
+	"public": {
+		"login": "../views/public/santanderX-",
+		"register": "../views/public/santanderX-",
+		"search": "../views/public/santanderX-",
+		"public-home": "../views/public/santanderX-",
+		"university-home": "../views/public/santanderX-",
+		"thanks": "../views/public/santanderX-",
+		"announcement": "../views/public/santanderX-",
+		"announcements": "../views/public/santanderX-"
+	},
+	"BASICUSER": {
+		"user-home": "../views/user/santanderX-",
+		"edit-profile": "../views/user/user-views/santanderX-",
+		"create-project": "../views/project/santanderX-",
+		"project-view": "../views/project/santanderX-",
+		"public-home": "../views/public/santanderX-",
+		"entity-admin-home": "../views/admin/santanderX-",
+		"university-home": "../views/public/santanderX-",
+		"cerrar-session": "../views/public/santanderX-",
+		"orientation-request-conversation": "../views/admin/admin-views/santanderX-",
+		"search": "../views/public/santanderX-",
+		"messages": "../views/user/santanderX-",
+		"announcement": "../views/public/santanderX-",
+		"announcements": "../views/public/santanderX-",
+		"universities": "../views/public/santanderX-",
+		"projects": "../views/project/santanderX-",
+		"gateway": "../views/santanderX-",
+		"exploration": "../views/user/santanderX-"
+	},
+	"UNITADMIN": {
+		"user-home": "../views/user/santanderX-",
+		"edit-profile": "../views/user/user-views/santanderX-",
+		"create-project": "../views/project/santanderX-",
+		"project-view": "../views/project/santanderX-",
+		"public-home": "../views/public/santanderX-",
+		"entity-admin-home": "../views/admin/santanderX-",
+		"university-home": "../views/public/santanderX-",
+		"orientation-request-conversation": "../views/admin/admin-views/santanderX-",
+		"cerrar-session": "../views/public/santanderX-",
+		"dashboard-admin": "../views/admin/admin-views/santanderX-",
+		"search": "../views/public/santanderX-",
+		"messages": "../views/user/santanderX-",
+		"users": "../views/user/santanderX-",
+		"announcement": "../views/public/santanderX-",
+		"announcements": "../views/public/santanderX-",
+		"universities": "../views/public/santanderX-",
+		"projects": "../views/project/santanderX-",
+		"gateway": "../views/santanderX-",
+		"admin-first-time": "../views/admin/admin-views/santanderX-"
+	}
+}

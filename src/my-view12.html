@@ -13,11 +13,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="redux-mixin.html">
 
 
-
-<dom-module id="my-view1">
+<dom-module id="my-view12">
   <template>
     <style include="shared-styles">
-       :host {
+      :host {
         display: block;
 
         padding: 10px;
@@ -27,32 +26,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <div class="card">
       <div class="circle">1</div>
       <h1>{{page}}</h1>
-      <p>Ut labores minimum atomorum pro. Laudem tibique ut has.</p>
-      <p>Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Lorem ipsum dolor sit amet, per
-        in nusquam nominavi periculis, sit elit oportere ea.Cu mei vide viris gloriatur, at populo eripuit sit.</p>
-    </div>
-    <a name="view1" href="[[rootPath]]view1/view11">View 1.1</a>
-    <a name="view2" href="[[rootPath]]view1/view12">View 1.2</a>
-    <a name="view3" href="[[rootPath]]view1/view13">View 1.3</a> {{page}}
-    <iron-pages selected="[[page]]" attr-for-selected="name" fallback-selection="view404" role="main">
-      <my-view11 name="view11"></my-view11>
-      <my-view12 name="view12"></my-view12>
-      <my-view404 name="view404"></my-view404>
-    </iron-pages>
   </template>
 
   <script>
     class MyView1 extends ReduxMixin(Polymer.Element) {
-      static get is() {
-        return 'my-view1';
-      }
-      static get properties() {
+      static get is() { return 'my-view12'; }
+      static get properties() {
         return {
           page: {
             type: String,
-            statePath: 'page1',
-          },
-        };
+            statePath: 'page1'
+          }
+        }
       }
     }
 

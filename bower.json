@@ -15,7 +15,8 @@
     "paper-icon-button": "PolymerElements/paper-icon-button#^2.0.0",
     "polymer": "Polymer/polymer#^2.0.0",
     "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.0",
-    "polymer-redux": "^1.0.1"
+    "polymer-redux": "^1.0.1",
+    "barrabes-route-behavior": "https://git.barrabes.biz/santanderXTeam/barrabes-route-behavior.git"
   },
   "resolutions": {
     "polymer": "^2.0.0"

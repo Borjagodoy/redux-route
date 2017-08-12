@@ -1,0 +1,85 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="./router-behavior.html">
+
+<script>
+  let RouteConfig = {};
+
+  RouteConfig = {
+    properties: {
+      routeConfig: {
+        type: Array,
+        computed: 'getRouteConfig()',
+      },
+      fallback: {
+        type: String,
+        value: '/404',
+      },
+    },
+
+    getRouteConfig() {
+      return [
+        {
+          path: '/404',
+          componentPath: ['my-view404.html'],
+        },
+        {
+          path: '/',
+          componentPath: ['my-view1.html'],
+        },
+        {
+          path: '/view1',
+          componentPath: ['my-view1.html'],
+          beforeEnter: this.isLogged,
+        },
+        {
+          path: '/view1/view11',
+          componentPath: ['my-view1.html', 'my-view11.html'],
+        },
+        {
+          path: '/view2',
+          componentPath: ['my-view2.html'],
+        },
+        {
+          path: '/view3',
+          componentPath: ['my-view3.html'],
+        },
+        {
+          path: '/user-home',
+          params: [{
+            name: 'userId',
+            regex: /[a-z0-9]{24}/,
+          }, ],
+          beforeEnter: this.isLogged,
+          componentPath: '/views/user/santanderX-user-home.html',
+          children: [{
+              path: '/about-me',
+              componentPath: '/views/user/user-views/santanderX-about-me.html',
+            },
+            {
+              path: '/user-projects',
+              componentPath: '/views/user/user-views/santanderX-user-projects.html',
+            },
+            {
+              path: '/user-colaboration',
+              componentPath: '/views/user/user-views/santanderX-user-collaboration.html',
+            },
+          ],
+        },
+        {
+          path: '/entity-admin-home',
+          beforeEnter: this.isUnitAdmin,
+          componentPath: '/views/admin/santanderX-entity-admin-home.html',
+        },
+      ];
+    },
+
+    isLogged() {
+      return true;
+    },
+
+    isUnitAdmin() {
+
+    },
+  };
+  Polymer.BarrabesRoute = [Polymer.BarrabesRoute, RouteConfig];
+</script>

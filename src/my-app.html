@@ -22,12 +22,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="my-icons.html">
 <link rel="import" href="redux-mixin.html">
-
-
-<link rel="import" href="my-view1.html">
-<link rel="import" href="my-view2.html">
-<link rel="import" href="my-view3.html">
-<link rel="import" href="my-view4.html">
+<link rel="import" href="router-config.html">
 
 <dom-module id="my-app">
   <template>
@@ -95,7 +90,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         </app-header>
 
         <iron-pages selected="[[page]]" attr-for-selected="name" fallback-selection="view404" role="main">
-          <my-view1 name="view1"></my-view1>
+          <my-view1 route="{{subroute}}" name="view1"></my-view1>
           <my-view2 name="view2"></my-view2>
           <my-view3 name="view3"></my-view3>
           <my-view4 name="view4"></my-view4>
@@ -106,15 +101,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   </template>
 
   <script>
-    class MyApp extends ReduxMixin(Polymer.Element) {
+    class MyApp extends ReduxMixin(Polymer.mixinBehaviors([
+        Polymer.BarrabesRoute,
+      ],
+      Polymer.Element)) {
       static get is() { return 'my-app'; }
 
       static get properties() {
         return {
           page: {
             type: String,
-            reflectToAttribute: true,
-            observer: '_pageChanged',
+            statePath: 'page0',
           },
           routeData: Object,
           subroute: String,
@@ -124,46 +121,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         };
       }
 
-      static get observers() {
-        return [
-          'splitRoute(route)',
-          '_routePageChanged(routeData.page)',
-        ];
-      }
-
-      _routePageChanged(page) {
-        // If no page was found in the route data, page will be an empty string.
-        // Deault to 'view1' in that case.
-        this.page = page || 'view1';
-
-        // Close a non-persistent drawer when the page & route are changed.
-        if (!this.$.drawer.persistent) {
-          this.$.drawer.close();
-        }
-      }
-
-      _pageChanged(page) {
-        // Load page import on demand. Show 404 page if fails
-        var resolvedPageUrl = this.resolveUrl('my-' + page + '.html');
-        Polymer.importHref(
-          resolvedPageUrl,
-          null,
-          this._showPage404.bind(this),
-          true);
-      }
-      splitRoute(route) {
-        let routeSplit = route.path.split('/');
-        routeSplit.splice(0, 1);
-        routeSplit.map((page, index) => {
-          this.dispatch({
-            type: 'ADD_PAGE',
-            page: page,
-            level: index,
-          },
-          );
-
-        });
-
+      ready() {
+        super.ready();
+        console.log(this.routeConfig[0]);
       }
       _showPage404() {
         this.page = 'view404';

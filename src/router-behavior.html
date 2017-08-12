@@ -1,0 +1,105 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<script>
+    // eslint-disable-next-line no-unused-vars
+    Polymer.BarrabesRoute = {
+        properties: {
+
+        },
+        observers: [
+            'splitRoute(route)',
+        ],
+
+        _routePageChanged(page) {
+            this.page = page || 'view1';
+        },
+
+        _pageChanged(page) {
+            // Load page import on demand. Show 404 page if fails
+            console.log('page', page);
+            var resolvedPageUrl = this.resolveUrl(page);
+            Polymer.importHref(
+                resolvedPageUrl,
+                null,
+                this._showPage404.bind(this),
+                true);
+        },
+        splitRoute(route) {
+            const lazyLoadingRoutes = this.searchPage(route);
+            this.controlRoute(lazyLoadingRoutes, route);
+        },
+        searchPage(searchRoute) {
+            return this.routeConfig.filter((route) => {
+                return this.isMyRoute(route.path, searchRoute.path);
+            })[0];
+        },
+        isMyRoute(configRoutePath, myRoute) {
+            return this.getRouteParent(myRoute) === configRoutePath;
+        },
+        getRouteParent(myRoute) {
+            const listView = myRoute.split('/');
+            const parentPage = listView[1] ? listView[1] : '';
+            return `/${parentPage}`;
+        },
+        controlRoute(configRoute, myRoute) {
+            if (configRoute && this.isAllowRoute(configRoute)) {
+                this.separateRoutes(configRoute, myRoute);
+                this.changePages(configRoute);
+            } else {
+                this.redirect(this.fallback);
+            }
+        },
+        separateRoutes(configRoute, myRoute) {
+            console.log('separate routes', configRoute, myRoute);
+            const configRouteList = configRoute.path.split('/');
+            const myRouteList = myRoute.path.split('/');
+            console.log('separate routes', configRouteList, myRouteList);
+            let routeObject = {};
+            // const pageList = routeList.filter((routeFragment) => {
+            //     return routeFragment.indexOf(':') === -1;
+            // });
+            // const paramsList = routeList.filter((routeFragment) => {
+            //     return routeFragment.indexOf(':') !== -1;
+            // });
+            myRouteList.forEach((value, index) => {
+                // if(this.isParam(configRouteList[index])) {
+                //     routeObject.params[configRouteList[index]] = myRouteList[index];
+                // }
+            });
+            this.getPages(configRouteList, myRouteList);
+            this.getParams(configRouteList, myRoute);
+        },
+        getPages() {
+
+        },
+        getParams()  {
+
+        },
+        isAllowRoute(route) {
+            return route && route.beforeEnter ? route.beforeEnter() : true;
+        },
+        lazyLoadPages(page) {
+            if (page.componentPath && page.componentPath.length > 0) {
+                page.componentPath.map((page) => {
+                    this._pageChanged(page);
+                });
+            }
+        },
+        changePages(route) {
+            console.log('page', route);
+            let routeSplit = route.path.split('/');
+            routeSplit.splice(0, 1);
+            routeSplit.map((page, index) => {
+                this.dispatch({
+                    type: 'ADD_PAGE',
+                    page: page,
+                    level: index,
+                });
+            });
+            this.lazyLoadPages(route);
+        },
+        redirect(page) {
+            window.history.pushState({}, null, page);
+            window.dispatchEvent(new CustomEvent('location-changed'));
+        },
+    };
+</script>
